@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <html>                                                                                                              
+  <head>
+      <meta charset="UTF-8">                                                                                          
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">                                        
+      <title>Test SmartWallet - Redirecting...</title>                                                                     
+  </head>
+  <body>                                                                                                              
+      <p>Redirecting back to Test SmartWallet...</p>                                                                     
+      <script>                                                                                                        
+          (function() {
+              var fragment = window.location.hash.substring(1);                                                       
+              if (fragment) {                                                                                       
+                  var params = new URLSearchParams(fragment);                                                         
+                  var idToken = params.get('id_token');
+                  var code = params.get('code');                                                                      
+                  var error = params.get('error');                                                                  
+                                                                                                                      
+                  if (idToken) {
+                      window.location.href = 'bethelzkp://auth/callback?id_token=' +                           
+  encodeURIComponent(idToken) + (code ? '&code=' + encodeURIComponent(code) : '');                                    
+                  } else if (error) {
+                      window.location.href = 'bethelzkp://auth/callback?error=' + encodeURIComponent(error);   
+                  } else {                                                                                          
+                      window.location.href = 'bethelzkp://auth/callback?error=no_token';                       
+                  }
+              } else {                                                                                                
+                  var query = window.location.search;                                                               
+                  if (query) {                                                                                        
+                      window.location.href = 'bethelzkp://auth/callback' + query;
+                  }                                                                                                   
+              }                                                                                                     
+          })();                                                                                                       
+      </script>                                                                                                     
+  </body>
+  </html>
